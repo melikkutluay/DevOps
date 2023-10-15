@@ -1,0 +1,41 @@
+version: '3.5'
+networks:
+  dm_pod:
+    driver: bridge
+services:
+  producer:
+    image: producer:2
+    container_name: producer
+    ports:
+      - 8081:8081
+    volumes:
+      - ./config:/conf
+    depends_on:
+      - rabbitmq
+    networks:
+      - dm_pod
+  consumer:
+    image: consumer:1
+    container_name: consumer
+    ports:
+      - 8080:8080
+    volumes:
+      - ./config:/conf
+    depends_on:
+      - rabbitmq
+      - producer
+    networks:
+      - dm_pod
+  rabbitmq:
+    image: nexus.dev.visualize.softtech.com.tr/repository/dap/rabbitmq:1
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: user
+    volumes:
+      - ./rabbit_data:/bitnami/rabbitmq/mnesia
+    networks:
+      - dm_pod
