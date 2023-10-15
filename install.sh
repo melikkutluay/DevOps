@@ -26,5 +26,5 @@ read k8s
 
 if [ $k8s = minikube ]
         then installFunction;
-        else echo "Oh no, I hate Oranges!"
+        else echo "we will install microk8s"
 fi
