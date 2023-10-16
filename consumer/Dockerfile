@@ -6,4 +6,4 @@ RUN chown -R consumer /logs/
 RUN chown -R 777 /opt/java/openjdk/lib/security/cacerts
 USER consumer
 ENV JAVA_OPTS="-Xms4g -Xmx8g"
-ENTRYPOINT exec java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTS -jar consumer.jar --spring.config.location=file:/conf/application.properties
+ENTRYPOINT exec java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTS -jar consumer.jar

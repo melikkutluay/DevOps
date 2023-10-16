@@ -1,14 +1,24 @@
 # Default values for consumer.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+SERVER_PORT: 8080
+HOST: localhost
 
+spring.rabbitmq.username: user
+USER_PASSWORD: user
+spring.rabbitmq.host: rabbitmq
+PORT: 5672
+
+QUEUE_NAME: myqueue
+EXCHANGE_NAME: myTopicExchange
+ROUTING_KEY: myRoutingKey.#
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: consumer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: 3
 
 imagePullSecrets: []
 nameOverride: ""
@@ -37,8 +47,8 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
-  port: 80
+  type: NodePort
+  port: 8080
 
 ingress:
   enabled: false

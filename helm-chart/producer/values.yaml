@@ -1,8 +1,8 @@
 # Default values for producer.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-SERVER_PORT: 8082
-HOST: localhost
+SERVER_PORT: 8081
+HOST: host.docker.internal
 
 spring.rabbitmq.username: user
 USER_PASSWORD: user
