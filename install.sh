@@ -1,4 +1,8 @@
-installFunction() {
+installDockerFunction() {
+    echo we will install docker in this function
+}
+
+installMinikubeFunction() {
     echo start install
     if ! [ -x "$(command -v minikube)" ]; then
         echo "Installing minikube..."
@@ -21,10 +25,25 @@ installFunction() {
     cd ~
     echo stop install
 }
+
+installMicrok8sFunction() {
+    if ! [ -x "$(command -v microk8s)" ]; then
+        sudo snap install microk8s --classic
+        microk8s status --wait-read
+    else
+        echo "microk8s is already installed"
+    fi
+
+    cd $HOME
+    mkdir .kube
+    cd .kube
+    microk8s config > config
+}
+
 echo "Please enter k8s type"
 read k8s
 
 if [ $k8s = minikube ]
-        then installFunction;
-        else echo "we will install microk8s"
+        then installMinikubeFunction;
+        else installMicrok8sFunction
 fi
