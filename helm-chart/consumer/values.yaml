@@ -2,11 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 SERVER_PORT: 8080
-HOST: localhost
-
-spring.rabbitmq.username: user
+USER_NAME: user
 USER_PASSWORD: user
-spring.rabbitmq.host: rabbitmq
+HOST: rabbitmq
 PORT: 5672
 
 QUEUE_NAME: myqueue
@@ -18,7 +16,7 @@ image:
   repository: consumer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 3
+  tag: deney2
 
 imagePullSecrets: []
 nameOverride: ""
