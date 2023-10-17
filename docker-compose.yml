@@ -4,14 +4,23 @@ networks:
     driver: bridge
 services:
   producer:
-    image: producer:2
+    image: producer:deney5
     container_name: producer
+    environment:
+      - SERVER_PORT=8081
+      - USER_NAME=user
+      - USER_PASSWORD=user
+      - HOST=rabbitmq
+      - PORT=5672
+      - QUEUE_NAME=myqueue
+      - EXCHANGE_NAME=myTopicExchange
+      - ROUTING_KEY=myRoutingKey.#
     ports:
       - 8081:8081
-    volumes:
-      - ./config:/conf
-    depends_on:
-      - rabbitmq
+#    volumes:
+#      - ./config:/conf
+#    depends_on:
+#      - rabbitmq
     networks:
       - dm_pod
   consumer:

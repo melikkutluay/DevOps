@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: spring-boot-k8s
-  replicas: 2 # Number of replicas that will be created for this deployment
+  replicas: 1 # Number of replicas that will be created for this deployment
   template:
     metadata:
       labels:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-k8s
-          image: producer:2
+          image: producer:3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
