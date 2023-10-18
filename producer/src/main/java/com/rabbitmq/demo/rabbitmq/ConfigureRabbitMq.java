@@ -1,11 +1,14 @@
 package com.rabbitmq.demo.rabbitmq;
 
+import com.rabbitmq.demo.vault.VaultConfigration;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +17,13 @@ import javax.swing.*;
 
 @Configuration
 public class ConfigureRabbitMq {
+
+    private final VaultConfigration vaultConfigration;
+
+    public ConfigureRabbitMq(VaultConfigration vaultConfigration) {
+        this.vaultConfigration = vaultConfigration;
+    }
+
     @Value("${rabbitmq.QUEUE_NAME}")
     private String QueueName;
     @Value("${rabbitmq.EXCHANGE_NAME}")
@@ -43,11 +53,18 @@ public class ConfigureRabbitMq {
     Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(RoutingKey);
     }
-
-    @Bean
-    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory) {
+    @Bean(name = "container")
+    SimpleMessageListenerContainer container() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
+        container.setConnectionFactory(rabbitConnectionFactory());
         return container;
+    }
+    @Bean
+    public ConnectionFactory rabbitConnectionFactory() {
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
+        //System.out.println(vaultConfigration.toString());
+        connectionFactory.setUsername(vaultConfigration.getUsername());
+        connectionFactory.setPassword(vaultConfigration.getPassword());
+        return connectionFactory;
     }
 }
