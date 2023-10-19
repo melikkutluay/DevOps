@@ -40,10 +40,6 @@ spec:
           env:
             - name: SERVER_PORT
               value: "{{ .Values.SERVER_PORT }}"
-            #- name: USER_NAME
-            #  value: "{{ .Values.USER_NAME }}"
-            #- name: USER_PASSWORD
-            #  value: "{{ .Values.USER_PASSWORD }}"
             - name: RABBITMQ_HOST
               value: "{{ .Values.rabbitmq.RABBITMQ_HOST }}"
             - name: RABBITMQ_PORT

@@ -17,18 +17,30 @@ public class ConfigureRabbitMq {
         this.vaultConfigration = vaultConfigration;
     }
 
+    public String getRabbitmqHost() {
+        return RabbitmqHost;
+    }
+
+    public void setRabbitmqHost(String rabbitmqHost) {
+        RabbitmqHost = rabbitmqHost;
+    }
+
+    @Value("${rabbitmq.RABBITMQ_HOST}")
+    private String RabbitmqHost;
+
+    public Integer getRabbitmqPort() {
+        return RabbitmqPort;
+    }
+
+    public void setRabbitmqPort(Integer rabbitmqPort) {
+        RabbitmqPort = rabbitmqPort;
+    }
+
+    @Value("${rabbitmq.RABBITMQ_PORT}")
+    private Integer RabbitmqPort;
+
     @Value("${rabbitmq.QUEUE_NAME}")
     private String QueueName;
-
-    /*@Bean
-    SimpleMessageListenerContainer simpleMessageListenerContainer(ConnectionFactory connectionFactory, MessageListenerAdapter messageListenerAdapter) {
-        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
-        simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-        simpleMessageListenerContainer.setQueueNames(QueueName);
-        simpleMessageListenerContainer.setMessageListener(messageListenerAdapter);
-        return simpleMessageListenerContainer;
-    }*/
-
 
     @Bean(name = "container")
     SimpleMessageListenerContainer container(MessageListenerAdapter messageListenerAdapter) {
@@ -44,7 +56,8 @@ public class ConfigureRabbitMq {
     }
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(RabbitmqHost);
+        connectionFactory.setPort(RabbitmqPort);
         connectionFactory.setUsername(vaultConfigration.getUsername());
         connectionFactory.setPassword(vaultConfigration.getPassword());
         return connectionFactory;

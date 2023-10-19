@@ -40,17 +40,21 @@ spec:
           env:
             - name: SERVER_PORT
               value: "{{ .Values.SERVER_PORT }}"
-            - name: USER_NAME
-              value: "{{ .Values.USER_NAME }}"
-            - name: USER_PASSWORD
-              value: "{{ .Values.USER_PASSWORD }}"
-            - name: HOST
-              value: "{{ .Values.HOST }}"
-            - name: PORT
-              value: "{{ .Values.PORT }}"
+            - name: RABBITMQ_HOST
+              value: "{{ .Values.rabbitmq.RABBITMQ_HOST }}"
+            - name: RABBITMQ_PORT
+              value: "{{ .Values.rabbitmq.RABBITMQ_PORT }}"
             - name: QUEUE_NAME
-              value: "{{ .Values.QUEUE_NAME }}"
+              value: "{{ .Values.rabbitmq.QUEUE_NAME }}"
             - name: EXCHANGE_NAME
-              value: "{{ .Values.EXCHANGE_NAME }}"
+              value: "{{ .Values.rabbitmq.EXCHANGE_NAME }}"
             - name: ROUTING_KEY
-              value: "{{ .Values.ROUTING_KEY }}"
+              value: "{{ .Values.rabbitmq.ROUTING_KEY }}"
+            - name: VAULT_NAME
+              value: "{{ .Values.vault.VAULT_NAME }}"
+            - name: VAULT_TOKEN
+              value: "{{ .Values.vault.VAULT_TOKEN }}"
+            - name: VAULT_HOST
+              value: "{{ .Values.vault.VAULT_HOST }}"
+            - name: VAULT_PORT
+              value: "{{ .Values.vault.VAULT_PORT }}"
