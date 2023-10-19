@@ -26,6 +26,17 @@ public class ConfigureRabbitMq {
     }
     @Value("${rabbitmq.RABBITMQ_HOST}")
     private String RabbitmqHost;
+
+    public Integer getRabbitmqPort() {
+        return RabbitmqPort;
+    }
+
+    public void setRabbitmqPort(Integer rabbitmqPort) {
+        RabbitmqPort = rabbitmqPort;
+    }
+
+    @Value("${rabbitmq.RABBITMQ_PORT}")
+    private Integer RabbitmqPort;
     @Value("${rabbitmq.QUEUE_NAME}")
     private String QueueName;
 
@@ -74,6 +85,7 @@ public class ConfigureRabbitMq {
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory(RabbitmqHost);
+        connectionFactory.setPort(RabbitmqPort);
         System.out.println("RabbitmqHost:" + RabbitmqHost);
         System.out.println("username:" + vaultConfigration.getUsername());
         connectionFactory.setUsername(vaultConfigration.getUsername());
