@@ -1,5 +1,30 @@
+#!/bin/sh
 installDockerFunction() {
-    echo we will install docker in this function
+    if ! [ -x "$(command -v minikube)" ]; then
+        sudo apt-get install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo apt-key fingerprint 0EBFCD88
+        sudo add-apt-repository \
+            "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) \
+            stable"
+        sudo apt-get update
+        sudo apt-get install -y docker-ce
+        # Linux post-install
+        sudo groupadd docker
+        sudo usermod -aG docker $USER
+        sudo systemctl enable docker
+    else 
+        echo "docker is already installed"
+    fi
+}
+
+installHelmFunction() { 
+    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 }
 
 installMinikubeFunction() {
@@ -18,6 +43,7 @@ installMinikubeFunction() {
     else
         echo "minikube is already installed"
     fi
+    rm -rf /tmp/juju-mk*
     sudo /usr/local/bin/minikube start --extra-config=apiserver.service-node-port-range=80-30000 --force --driver=docker
 
     set tempFolder=$PWD
@@ -29,21 +55,26 @@ installMinikubeFunction() {
 installMicrok8sFunction() {
     if ! [ -x "$(command -v microk8s)" ]; then
         sudo snap install microk8s --classic
-        microk8s status --wait-read
+        #microk8s status --wait-read
     else
         echo "microk8s is already installed"
     fi
 
-    cd $HOME
-    mkdir .kube
-    cd .kube
-    microk8s config > config
+    #cd $HOME
+    #mkdir .kube
+    #cd .kube
+    #microk8s config > config
 }
+installDockerFunction;
 
-echo "Please enter k8s type"
-read k8s
+#echo "Which use k8s cluster, minikube or microk8s"
+#read k8s
 
-if [ $k8s = minikube ]
-        then installMinikubeFunction;
-        else installMicrok8sFunction
-fi
+#if [ $k8s = minikube ]
+#        then installMinikubeFunction;
+#        else installMicrok8sFunction
+#fi
+installMinikubeFunction;
+installHelmFunction;
+
+
