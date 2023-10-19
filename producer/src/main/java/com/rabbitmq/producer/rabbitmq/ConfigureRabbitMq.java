@@ -1,6 +1,8 @@
 package com.rabbitmq.producer.rabbitmq;
 
 import com.rabbitmq.producer.vault.VaultConfigration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -9,6 +11,7 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,9 +24,19 @@ public class ConfigureRabbitMq {
 
         this.vaultConfigration = vaultConfigration;
     }
-
+    @Value("${rabbitmq.RABBITMQ_HOST}")
+    private String RabbitmqHost;
     @Value("${rabbitmq.QUEUE_NAME}")
     private String QueueName;
+
+    public String getRabbitmqHost() {
+        return RabbitmqHost;
+    }
+
+    public void setRabbitmqHost(String rabbitmqHost) {
+        RabbitmqHost = rabbitmqHost;
+    }
+
     @Value("${rabbitmq.EXCHANGE_NAME}")
     private String ExchangeName;
     @Value("${rabbitmq.ROUTING_KEY}")
@@ -51,6 +64,7 @@ public class ConfigureRabbitMq {
     Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(RoutingKey);
     }
+
     @Bean(name = "container")
     SimpleMessageListenerContainer container() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
@@ -59,7 +73,8 @@ public class ConfigureRabbitMq {
     }
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(RabbitmqHost);
+        System.out.println("RabbitmqHost:" + RabbitmqHost);
         System.out.println("username:" + vaultConfigration.getUsername());
         connectionFactory.setUsername(vaultConfigration.getUsername());
         connectionFactory.setPassword(vaultConfigration.getPassword());

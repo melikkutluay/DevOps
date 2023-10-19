@@ -2,21 +2,28 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 SERVER_PORT: 8081
-USER_NAME: user
-USER_PASSWORD: user
-HOST: rabbitmq
-PORT: 5672
 
-QUEUE_NAME: myqueue
-EXCHANGE_NAME: myTopicExchange
-ROUTING_KEY: myRoutingKey.#
+rabbitmq:
+  #USER_NAME: user
+  #USER_PASSWORD: user
+  RABBITMQ_HOST: rabbitmq
+  RABBITMQ_PORT: 5672
+  QUEUE_NAME: myqueue
+  EXCHANGE_NAME: myTopicExchange
+  ROUTING_KEY: myRoutingKey.#
+
+vault:
+  VAULT_NAME: vaultdemo
+  VAULT_TOKEN: hvs.qyegCIkJFrZLnP8lQn5e1QRD
+  VAULT_HOST: vault
+  VAULT_PORT: 8200
 replicaCount: 1
 
 image:
   repository: producer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: deney5
+  tag: dep-5
 
 imagePullSecrets: []
 nameOverride: ""
