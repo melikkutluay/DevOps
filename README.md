@@ -1,12 +1,15 @@
 # DevOps
 1- helm install rabbitmq ./rabbitmq/ --values ./rabbitmq/values.yaml
-2- helm install producer ./producer/ --values ./producer/values.yaml
-3- helm install consumer ./consumer/ --values ./consumer/values.yaml
-4- helm install vault --set='server.dev.enabled=true' hashicorp/vault
+2- helm install vault --set='server.dev.enabled=true' hashicorp/vault
+3- helm install producer ./producer/ --values ./producer/values.yaml
+4- helm install consumer ./consumer/ --values ./consumer/values.yaml
 5- kubectl port-forward --namespace default svc/producer 8081:8081
 6- vault token create
-7- kubectl port-forward --namespace default svc/vault 8200:8200
-port-forward --namespace default svc/rabbitmq 15672:15672
+7- vault kv put -mount=secret vaultdemo demo.username=user demo.password=user
+7- kubectl port-forward --namespace default svc/rabbitmq 15672:15672
+8- kubectl port-forward --namespace default svc/vault 8200:8200
+
+kubectl exec -it pod/vault-0 sh
 
 helm upgrade --install rabbitmq --set image.repository=nexus.dev.visualize.softtech.com.tr/repository/dap/rabbitmq --set image.tag=1 --set auth.username=user --set auth.password=user --set auth.erlangCookie="" --set metrics.enabled=true bitnami/rabbitmq
 

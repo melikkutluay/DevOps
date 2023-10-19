@@ -1,4 +1,4 @@
-package com.rabbitmq.demo.vault;
+package com.rabbitmq.producer.vault;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

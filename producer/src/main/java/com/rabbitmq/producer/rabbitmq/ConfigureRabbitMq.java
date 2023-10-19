@@ -1,6 +1,6 @@
-package com.rabbitmq.demo.rabbitmq;
+package com.rabbitmq.producer.rabbitmq;
 
-import com.rabbitmq.demo.vault.VaultConfigration;
+import com.rabbitmq.producer.vault.VaultConfigration;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -8,12 +8,9 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.swing.*;
 
 @Configuration
 public class ConfigureRabbitMq {
@@ -21,6 +18,7 @@ public class ConfigureRabbitMq {
     private final VaultConfigration vaultConfigration;
 
     public ConfigureRabbitMq(VaultConfigration vaultConfigration) {
+
         this.vaultConfigration = vaultConfigration;
     }
 
@@ -62,7 +60,7 @@ public class ConfigureRabbitMq {
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory("localhost");
-        //System.out.println(vaultConfigration.toString());
+        System.out.println("username:" + vaultConfigration.getUsername());
         connectionFactory.setUsername(vaultConfigration.getUsername());
         connectionFactory.setPassword(vaultConfigration.getPassword());
         return connectionFactory;

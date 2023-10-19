@@ -1,5 +1,5 @@
-package com.rabbitmq.demo.controller;
-import com.rabbitmq.demo.service.ProduceMessageService;
+package com.rabbitmq.producer.controller;
+import com.rabbitmq.producer.service.ProduceMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
