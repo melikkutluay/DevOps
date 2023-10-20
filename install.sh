@@ -65,7 +65,7 @@ installMicrok8sFunction() {
     #cd .kube
     #microk8s config > config
 }
-installDockerFunction;
+
 
 #echo "Which use k8s cluster, minikube or microk8s"
 #read k8s
@@ -74,6 +74,7 @@ installDockerFunction;
 #        then installMinikubeFunction;
 #        else installMicrok8sFunction
 #fi
+installDockerFunction;
 installMinikubeFunction;
 installHelmFunction;
 
