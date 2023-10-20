@@ -23,10 +23,10 @@
 Install the dependencies and devDependencies.
 
 ```sh
-sh install.sh
+sh runAllScript.sh
 ```
 > Note: `If you want Manually install, you follow the part of Manually`.
-
+> Note: `docker login <your docker hub repository domain> -u <username> -p <password>`  Don't forget !
 ## Installation Manually
 
 ## Docker
