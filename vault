@@ -21,3 +21,21 @@
   20  export VAULT_ADDR="http://127.0.0.1:8200"
   21 clear
   22 history
+
+
+kubectl exec -it pod/vault-0 sh
+
+helm upgrade --install rabbitmq --set image.repository=nexus.dev.visualize.softtech.com.tr/repository/dap/rabbitmq --set image.tag=1 --set auth.username=user --set auth.password=user --set auth.erlangCookie="" --set metrics.enabled=true bitnami/rabbitmq
+
+
+Initial Root Token: hvs.aYj6zCXdQ0Z8GT2R6oSgpYiM
+
+export SA_SECRET_NAME=$(kubectl get secrets --output=json | jq -r '.items[].metadata | select(.name|startswith("vault-auth-")).name')
+
+--output 'go-template={{ .data.token }}'
+
+export TOKEN=$(kubectl exec -ti vault-0 vault token create --output 'go-template={{ .data.token }}' | base64 --decode) 
+
+export SA_JWT_TOKEN=$(kubectl get secret $SA_SECRET_NAME   --output 'go-template={{ .data.token }}' | base64 --decode)
+
+export SA_JWT_TOKEN=$(kubectl get secret $SA_SECRET_NAME --output 'go-template={{ .data.token }}' | base64 --decode)
