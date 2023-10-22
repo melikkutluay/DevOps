@@ -9,6 +9,3 @@ helm install producer helm-chart/producer/ --values helm-chart/producer/values.y
 helm install consumer helm-chart/consumer/ --values helm-chart/consumer/values.yaml
 sh portForward.sh
 helm ls
-
-echo "helm charts finished"
-#curl --location --request POST 'http://localhost:8081/produce?message=deployment_test'
