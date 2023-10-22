@@ -11,13 +11,13 @@ rabbitmq:
 
 vault:
   VAULT_NAME: vaultdemo
-  VAULT_TOKEN: hvs.qyegCIkJFrZLnP8lQn5e1QRD
+  VAULT_TOKEN: root
   VAULT_HOST: vault
   VAULT_PORT: 8200
 replicaCount: 1
 
 image:
-  repository: consumer
+  repository: melikktly/consumer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: dep-5

@@ -4,7 +4,8 @@ image:
   repository: bitnami/rabbitmq
   tag: 3.12.6-debian-11-r14
   pullPolicy: IfNotPresent
-servicetype: NodePort
+#servicetype: NodePort
+servicetype: ClusterIP
 
 serviceBindings:
   enabled: false

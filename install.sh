@@ -40,13 +40,13 @@ installMinikubeFunction() {
         minikube config set WantUpdateNotification false
         minikube config set WantReportErrorPrompt false
         minikube config set WantKubectlDownloadMsg false
+
     else
         echo "minikube is already installed"
     fi
+    
     rm -rf /tmp/juju-mk*
     sudo /usr/local/bin/minikube start --extra-config=apiserver.service-node-port-range=80-30000 --force --driver=docker
-
-    set tempFolder=$PWD
 
     cd ~
     echo stop install

@@ -59,9 +59,13 @@ helm install consumer ./consumer/ --values ./consumer/values.yaml
 Get vault token 
 
 ```sh
+export VAULT_TOKEN=$(kubectl logs pod/vault-0 | grep "Root Token")
+```
+Generate new vault token
+
+```sh
 kubectl exec --stdin=true --tty=true vault-0 -- vault token create
 ```
-
 Create secret into Vault
 
 ```sh
