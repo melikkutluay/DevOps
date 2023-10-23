@@ -60,10 +60,10 @@ installMicrok8sFunction() {
         echo "microk8s is already installed"
     fi
 
-    #cd $HOME
-    #mkdir .kube
-    #cd .kube
-    #microk8s config > config
+    cd $HOME
+    mkdir .kube
+    cd .kube
+    microk8s config > config
 }
 
 installKubectlFunction() {
@@ -84,5 +84,5 @@ installKubectlFunction() {
 installDockerFunction;
 #installMinikubeFunction;
 installMicrok8sFunction;
-installKubectlFunction;
-installHelmFunction;
+#installKubectlFunction;
+#installHelmFunction;
