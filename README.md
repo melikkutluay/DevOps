@@ -14,7 +14,7 @@
 | -------|
 | Helm|
 | Docker |
-| Minikube
+| Minikube |
 
 > Note: `If you want Automatically install, you follow the part of Automatically`.
 
@@ -26,15 +26,18 @@ Install the dependencies and devDependencies.
 sh runAllScript.sh
 ```
 > Note: `If you want Manually install, you follow the part of Manually`.
-> Note: `docker login <your docker hub repository domain> -u <username> -p <password>`  Don't forget !
+
 ## Installation Manually
+
+```sh
+sh install.sh
+```
 
 ## Docker
 
 Rabbitmq,Vault and Spring Application are very easy to install and deploy in a Kubernetes cluster.
 
 ```sh
-docker login <your docker hub repository domain> -u <username> -p <password>
 sh imageDownload.sh
 ```
 
@@ -49,19 +52,17 @@ sh minikubeImageLoad.sh
 Create helm releases
 
 ```sh
-cd ./helm-chart
-helm install rabbitmq ./rabbitmq/ --values ./rabbitmq/values.yaml
-helm install vault --set='server.dev.enabled=true' hashicorp/vault
-helm install producer ./producer/ --values ./producer/values.yaml
-helm install consumer ./consumer/ --values ./consumer/values.yaml
+sh runHelmChart.sh
 ```
 
-Get vault token 
+Get default vault token 
 
 ```sh
 export VAULT_TOKEN=$(kubectl logs pod/vault-0 | grep "Root Token")
 ```
-Generate new vault token
+Generate a new vault token
+
+> Note: if you generated new token, you must set 'VAULT_TOKEN' parameter into values.yaml files of producer and consumer
 
 ```sh
 kubectl exec --stdin=true --tty=true vault-0 -- vault token create
@@ -71,17 +72,27 @@ Create secret into Vault
 ```sh
 kubectl exec --stdin=true --tty=true vault-0 -- vault kv put -mount=secret vaultdemo demo.username=user demo.password=user
 ```
+
 The kubernetes will expose port rabbitmq (15672), vault (8200) and springboot (8081)
+
 ```sh
-kubectl port-forward --namespace default svc/rabbitmq 15672:15672
-kubectl port-forward --namespace default svc/vault 8200:8200
+kubectl port-forward --namespace default svc/rabbitmq 15672:15672  // Optional
+kubectl port-forward --namespace default svc/vault 8200:8200       // Optional
 kubectl port-forward --namespace default svc/producer 8081:8081
+kubectl port-forward --namespace default svc/consumer 8080:8080
 ```
 
+You can use curl.sh file for write to queue; 
+```sh
+sh curl.sh
+```
+
+Optional curl script
 
 ```sh
 curl --location --request POST 'http://localhost:8081/produce?message=deployment_test'
 ```
+
 ## Documantation
 We have one options for the documantation, the links are in the icons below, you can visit to document sites by click the icons
 

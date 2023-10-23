@@ -7,5 +7,5 @@ helm install rabbitmq helm-chart/rabbitmq/ --values helm-chart/rabbitmq/values.y
 sleep 60s
 helm install producer helm-chart/producer/ --values helm-chart/producer/values.yaml
 helm install consumer helm-chart/consumer/ --values helm-chart/consumer/values.yaml
-sh portForward.sh
+
 helm ls
