@@ -1,11 +1,11 @@
 echo "helm charts is creating"
 
-helm install vault --set='server.dev.enabled=true' hashicorp/vault
+microk8s helm install vault --set='server.dev.enabled=true' hashicorp/vault
 sleep 20s
-sh vaultSecret.sh
-helm install rabbitmq helm-chart/rabbitmq/ --values helm-chart/rabbitmq/values.yaml
+microk8s sh vaultSecret.sh
+microk8s helm install rabbitmq helm-chart/rabbitmq/ --values helm-chart/rabbitmq/values.yaml
 sleep 60s
-helm install producer helm-chart/producer/ --values helm-chart/producer/values.yaml
-helm install consumer helm-chart/consumer/ --values helm-chart/consumer/values.yaml
+microk8s helm install producer helm-chart/producer/ --values helm-chart/producer/values.yaml
+microk8s helm install consumer helm-chart/consumer/ --values helm-chart/consumer/values.yaml
 
-helm ls
+microk8s helm ls

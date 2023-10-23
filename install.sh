@@ -82,6 +82,7 @@ installKubectlFunction() {
 #        else installMicrok8sFunction
 #fi
 installDockerFunction;
-installMinikubeFunction;
+#installMinikubeFunction;
+installMicrok8sFunction;
 installKubectlFunction;
 installHelmFunction;
