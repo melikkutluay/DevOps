@@ -5,7 +5,7 @@
 - [RabbitMq] - RabbitMQ is a message broker.
 - [SpringBoot] - evented I/O for the backend
 - [Vault] - Manage secrets and protect sensitive data
-- [Minikube] - Quickly sets up a local Kubernetes cluster
+- [Microk8s] - Quickly sets up a local Kubernetes cluster
 - [Helm] - Package manager for Kubernetes
 - [Docker] - Container architectural structure
 
@@ -14,7 +14,7 @@
 | -------|
 | Helm|
 | Docker |
-| Minikube |
+| Microk8s |
 
 > Note: `If you want Automatically install, you follow the part of Automatically`.
 
@@ -41,13 +41,10 @@ Rabbitmq,Vault and Spring Application are very easy to install and deploy in a K
 sh imageDownload.sh
 ```
 
-## Minikube
+## Microk8s
 
-Import images to local minikube repository
+Imported images to local Microk8s repository with imageDownload script file
 
-```sh
-sh minikubeImageLoad.sh
-```
 
 Create helm releases
 
@@ -58,7 +55,7 @@ sh runHelmChart.sh
 Get default vault token 
 
 ```sh
-export VAULT_TOKEN=$(kubectl logs pod/vault-0 | grep "Root Token")
+export VAULT_TOKEN=$(microk8s kubectl logs pod/vault-0 | grep "Root Token")
 ```
 Generate a new vault token
 
@@ -76,10 +73,10 @@ kubectl exec --stdin=true --tty=true vault-0 -- vault kv put -mount=secret vault
 The kubernetes will expose port rabbitmq (15672), vault (8200) and springboot (8081)
 
 ```sh
-kubectl port-forward --namespace default svc/rabbitmq 15672:15672  // Optional
-kubectl port-forward --namespace default svc/vault 8200:8200       // Optional
-kubectl port-forward --namespace default svc/producer 8081:8081
-kubectl port-forward --namespace default svc/consumer 8080:8080
+microk8s kubectl port-forward --namespace default svc/rabbitmq 15672:15672  // Optional
+microk8s kubectl port-forward --namespace default svc/vault 8200:8200       // Optional
+microk8s kubectl port-forward --namespace default svc/producer 8081:8081
+microk8s kubectl port-forward --namespace default svc/consumer 8080:8080
 ```
 
 You can use curl.sh file for write to queue; 
