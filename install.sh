@@ -66,6 +66,14 @@ installMicrok8sFunction() {
     #microk8s config > config
 }
 
+installKubectlFunction() {
+    echo "install kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    chmod +x ./kubectl
+    mkdir -p ~/.local/bin
+    mv ./kubectl ~/.local/bin/kubectl
+    kubectl version --client
+}
 
 #echo "Which use k8s cluster, minikube or microk8s"
 #read k8s
@@ -76,6 +84,5 @@ installMicrok8sFunction() {
 #fi
 installDockerFunction;
 installMinikubeFunction;
+installKubectlFunction;
 installHelmFunction;
-
-
