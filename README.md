@@ -95,5 +95,5 @@ We have one options for the documantation, the links are in the icons below, you
 
 ### Postman: 
 
-[![N|Solid](https://www.svgrepo.com/show/306590/postman.svg=20x20)](https://documenter.getpostman.com/view/14336225/2s9YRB1XGu) 
+[![N|Solid](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)](https://documenter.getpostman.com/view/14336225/2s9YRB1XGu) 
 > Link for Postman: `https://documenter.getpostman.com/view/14336225/2s9YRB1XGu`
