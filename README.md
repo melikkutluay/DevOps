@@ -94,7 +94,6 @@ curl --location --request POST 'http://localhost:8081/produce?message=deployment
 We have one options for the documantation, the links are in the icons below, you can visit to document sites by click the icons
 
 ### Postman: 
-<img alt="Postman Icon SVG Vector Icon" fetchpriority="high" width="250" height="250" decoding="async" data-nimg="1" style="color:transparent;width:250px;height:250px" src="https://documenter.getpostman.com/view/14336225/2s9YRB1XGu">
 
-[![N|Solid](https://www.svgrepo.com/show/306590/postman.svg)](https://documenter.getpostman.com/view/14336225/2s9YRB1XGu) 
+[![N|Solid](https://www.svgrepo.com/show/306590/postman.svg=250x250)](https://documenter.getpostman.com/view/14336225/2s9YRB1XGu) 
 > Link for Postman: `https://documenter.getpostman.com/view/14336225/2s9YRB1XGu`
